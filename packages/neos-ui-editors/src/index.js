@@ -1,5 +1,3 @@
-require('./manifest.js');
-
 import {
     TextField,
     TextArea,
