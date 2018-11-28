@@ -216,8 +216,8 @@ manifest('main.dataloaders', {}, globalRegistry => {
                 this._debounceTimer = window.setTimeout(resolve, 300);
             }).then(() => {
                 // Trigger query
-                const assetProxySearchApi = backend.get().endpoints.assetProxySearch;
-                const resultPromise = assetProxySearchApi(searchTerm, '', options);
+                const assetSearchApi = backend.get().endpoints.assetSearch;
+                const resultPromise = assetSearchApi(searchTerm, '', options);
 
                 this._lru().set(cacheKey, resultPromise);
 
@@ -228,8 +228,7 @@ manifest('main.dataloaders', {}, globalRegistry => {
                     results.forEach(result => {
                         const cacheKey = makeCacheKey('resolve', {
                             options,
-                            assetSourceIdentifier: result.assetSourceIdentifier,
-                            assetProxyIdentifier: result.assetProxyIdentifier
+                            assetIdentifier: result.assetIdentifier
                         });
                         this._lru().set(cacheKey, Promise.all([result]));
                     });
